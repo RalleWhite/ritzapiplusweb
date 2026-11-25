@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hotel Ritz — Gæsteportal & Booking</title>
+  <link rel="stylesheet" href="/src/style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <div class="brand">
+        <span class="brand-badge">R</span>
+        <div>
+          <h1>Hotel Ritz</h1>
+          <p class="subtitle">Gæsteportal — Service, Køb & Reception Chat</p>
+        </div>
+      </div>
+      <div class="api-status-box">
+        <span id="api-indicator" class="status-dot offline"></span>
+        <span id="api-status-text">Forbinder til API...</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="container main-grid">
+    <!-- LEFT COLUMN: Create Booking / Lookup -->
+    <section class="left-panel">
+      <!-- Lookup Card -->
+      <div class="card">
+        <h2>Find dine bookinger</h2>
+        <p class="muted">Indtast dit eksterne bookingnummer (f.eks. <code>XXXXXX</code>) for at se status og chatte med receptionen.</p>
+        <form id="lookup-form" class="lookup-bar">
+          <input
+            type="text"
+            id="lookup-extern"
+            placeholder="F.eks. XXXXXX"
+            required
+          />
+          <button type="submit" class="btn btn-primary">Søg</button>
+        </form>
+      </div>
+
+      <!-- Create New Booking / Request Card -->
+      <div class="card">
+        <h2>Opret ny bestilling / booking</h2>
+        <p class="muted">Bestil roomservice, ekstra udstyr eller tilkøb direkte til dit ophold.</p>
+
+        <form id="create-booking-form" class="form-stack">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="bookingextern">Bookingnummer (Ekstern ref.)</label>
+              <input type="text" id="bookingextern" placeholder="BK-9021" required />
+            </div>
+            <div class="form-group">
+              <label for="bookingtype">Type</label>
+              <select id="bookingtype" required>
+                <option value="1">1 — Service (Rengøring, håndklæder, concierge)</option>
+                <option value="2">2 — Køb (Roomservice, minibar, opgradering)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="navn">Fulde navn</label>
+              <input type="text" id="navn" placeholder="Anders Jensen" required />
+            </div>
+            <div class="form-group">
+              <label for="telefonnummer">Telefonnummer</label>
+              <input type="tel" id="telefonnummer" placeholder="+45 12 34 56 78" required />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="ankomstdato">Ønsket tidspunkt / Ankomstdato</label>
+            <input type="datetime-local" id="ankomstdato" required />
+          </div>
+
+          <div class="form-group">
+            <label for="besked">Besked til receptionen (valgfri)</label>
+            <textarea
+              id="besked"
+              rows="3"
+              placeholder="Skriv evt. ønsker eller detaljer her..."
+            ></textarea>
+          </div>
+
+          <div id="create-feedback" class="feedback hidden"></div>
+
+          <button type="submit" id="create-submit-btn" class="btn btn-gold">
+            Send bestilling
+          </button>
+        </form>
+      </div>
+    </section>
+
+    <!-- RIGHT COLUMN: Guest Bookings List + Active Chat -->
+    <section class="right-panel">
+      <div class="card">
+        <div class="section-header">
+          <div>
+            <h2>Mine bestillinger</h2>
+            <p id="active-ref-label" class="muted">Ingen booking valgt endnu</p>
+          </div>
+          <button id="refresh-btn" class="btn btn-outline btn-sm" title="Opdater status fra hotellet">
+            ↻ Opdater
+          </button>
+        </div>
+
+        <div id="bookings-list" class="bookings-list">
+          <div class="empty-state">
+            Søg på dit bookingnummer til venstre eller opret en ny bestilling for at komme i gang.
+          </div>
+        </div>
+      </div>
+
+      <!-- Chat Card (Shown when a booking is selected) -->
+      <div id="chat-card" class="card chat-card hidden">
+        <div class="chat-header">
+          <div>
+            <h3 id="chat-title">Chat med receptionen</h3>
+            <p id="chat-subtitle" class="muted"></p>
+          </div>
+          <span id="chat-approval-badge" class="badge"></span>
+        </div>
+
+        <div id="chat-messages" class="chat-messages"></div>
+
+        <form id="chat-form" class="chat-input-bar">
+          <input
+            type="text"
+            id="chat-input"
+            placeholder="Skriv en besked til hotellet..."
+            autocomplete="off"
+            required
+          />
+          <button type="submit" class="btn btn-primary">Send</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <script type="module" src="/src/main.ts"></script>
+</body>
+</html>

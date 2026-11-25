@@ -1,0 +1,28 @@
+{
+  "name": "ritzapi",
+  "version": "1.0.0",
+  "description": "Hotel Booking REST API in TypeScript, Express, and PostgreSQL",
+  "license": "ISC",
+  "type": "module",
+  "main": "dist/index.js",
+  "scripts": {
+  "dev": "nodemon",
+  "start": "node --env-file .env --import tsx src/index.ts"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "pg": "^8.13.1",
+    "ts-node": "^10.9.2"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.6",
+    "@types/node": "^22.10.0",
+    "@types/pg": "^8.11.10",
+    "nodemon": "^3.1.14",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2"
+  }
+}
